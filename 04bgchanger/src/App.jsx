@@ -40,8 +40,8 @@ function App() {
           style={{backgroundColor: "navy"}}>navy</button>
 
           {/* lavender */}
-          <button onClick={()=> setColor('lavender')} className="outline-none px-4 py-1 rounded-full text-black shadow-lg"
-          style={{backgroundColor: "grey"}}>lavender</button>
+          <button onClick={()=> setColor('grey')} className="outline-none px-4 py-1 rounded-full text-black shadow-lg"
+          style={{backgroundColor: "grey"}}>grey</button>
 
           {/* violet */}
           <button onClick={()=> setColor('violet')} className="outline-none px-4 py-1 rounded-full text-black shadow-lg"
