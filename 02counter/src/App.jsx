@@ -20,7 +20,7 @@ function App() {
     A way(function) to change it (e.g. setCount)
   */
 
-  let [counter, setCounter] = useState(1)
+  let [counter, setCounter] = useState(1) // and the intresting features of 2nd parameter which is a function also takes callback function as parameter of it self, it is useful i you want to write hardcodded value by implementin in the line directly you wanna make change example:  if we have function setCounter(()=> {})
   
   // let counter = 15;
 
