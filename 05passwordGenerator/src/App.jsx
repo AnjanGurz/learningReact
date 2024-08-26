@@ -1,4 +1,4 @@
-import { useState, useCallback} from 'react'
+import { useState, useCallback, useEffect, useRef} from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
@@ -8,12 +8,17 @@ function App() {
   const [numAllowed, setNumAllowed] = useState(false)
   const [charAllowed, setCharAllowed] = useState(false)
   const [password, setPassword] = useState('')
+  const [copy, setCopied] = useState('copy') // added by anjan for better user exp
+
+  //useRef hook
+  const passwordRef = useRef(null)
+
 
   const passwordGenerator = useCallback(() => {
     let pass = ''
     let str = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz'
     if (numAllowed) str+= '0123456789'
-    if (charAllowedAllowed) str+= '~!@#$%^&*()_+-=[]{}|;:,.<>?/'
+    if (charAllowed) str+= '~!@#$%^&*()_+-=[]{}|;:,.<>?/'
 
     for (let i = 1; i <=length; i++) {
       let char = Math.floor(Math.random() * str.length + 1)
@@ -21,9 +26,26 @@ function App() {
     }
 
     setPassword(pass)
-
+    setCopied('copy') // added by anjan -> every other customize btn click the state of the btn label change into it's intital value to make better user-exp
 
   }, [length, numAllowed, charAllowed, setPassword])
+
+  const copyPasswordToClipBoard = useCallback(()=>{
+    passwordRef.current?.select(); // to make user what is beging sleected
+    passwordRef.current?.setSelectionRange(0, 8) // to manipulate how much range of character of pass can be copied by user in example we can use only 3 char password due to range set 0-3.
+    // window.navigator.clipboard.writeText(password)
+    window.navigator.clipboard.writeText(passwordRef.current?.value.slice(0, 8)); // Added .value and .slice(0, 3) -> use this technique to copy what is selected shown to the user
+    setCopied('copied') // interactivity added by anjan
+  },[password])
+
+
+  {/* useEffect is used to run the main logic of the program on initial render and if dependencies change, it will re-run the logic again. */}
+  useEffect(()=> {
+    passwordGenerator()
+  }, [length, numAllowed, charAllowed, passwordGenerator])
+
+  
+
 
   return (
     <>
@@ -36,15 +58,17 @@ function App() {
               value={password}
               className="outline-none w-full py-1 px-3"
               placeholder="Password"
-              readOnly
+              readOnly ref={passwordRef}
           />  
 
-          <button className='outline-none bg-blue-700 text-white px-3 py-0.5 shrink-0'> copy </button>     
+          <button onClick={copyPasswordToClipBoard} className='outline-none bg-blue-700 text-white px-3 py-0.5 shrink-0'> {copy} </button>     
         </div>
+    
+        {/* input box and checkbox container */}
+        <div className='flex flex-col sm:flex-row sm:items-center sm:justify-between text-sm gap-y-4 gap-x-2'>
 
-        <div className='flex text-sm gap-x-2'>
           <div className='flex items-center gap-x-2'>
-            <input type="range" min={6} max={100} value = {length} className='cursor-pointer' onChange={(e)=> {setLength(e.target.value)}}  />
+            <input type="range" min={6} max={100} value = {length} className='cursor-pointer sm:w-1/2 md:w-1/3 lg:w-1/4' onChange={(e)=> {setLength(e.target.value)}}  />
             <label>Length:&nbsp;{length}</label>
           </div>
 
