@@ -32,9 +32,9 @@ function App() {
 
   const copyPasswordToClipBoard = useCallback(()=>{
     passwordRef.current?.select(); // to make user what is beging sleected
-    passwordRef.current?.setSelectionRange(0, 8) // to manipulate how much range of character of pass can be copied by user in example we can use only 3 char password due to range set 0-3.
-    // window.navigator.clipboard.writeText(password)
-    window.navigator.clipboard.writeText(passwordRef.current?.value.slice(0, 8)); // Added .value and .slice(0, 3) -> use this technique to copy what is selected shown to the user
+    //passwordRef.current?.setSelectionRange(0, 8) // to manipulate how much range of character of pass can be copied by user in example we can use only 3 char password due to range set 0-3.
+    window.navigator.clipboard.writeText(password)
+    // window.navigator.clipboard.writeText(passwordRef.current?.value.slice(0, 8)); // Added .value and .slice(0, 3) -> use this technique to copy what is selected shown to the user
     setCopied('copied') // interactivity added by anjan
   },[password])
 
@@ -56,7 +56,7 @@ function App() {
           <input
               type="text"
               value={password}
-              className="outline-none w-full py-1 px-3"
+              className="outline-none text-black w-full py-1 px-3"
               placeholder="Password"
               readOnly ref={passwordRef}
           />  

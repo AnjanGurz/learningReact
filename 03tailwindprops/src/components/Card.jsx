@@ -1,6 +1,6 @@
 import React from 'react'
 
-function Card({userName, btnText = ' Click'}) {
+function Card({userName, btnText = 'Click'}) {
 
   // console.log('props', props);
   
