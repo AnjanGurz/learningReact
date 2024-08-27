@@ -39,7 +39,7 @@ function App() {
   },[password])
 
 
-  {/* useEffect is used to run the main logic of the program on initial render and if dependencies change, it will re-run the logic again. */}
+  {/* useEffect is used to run the main logic of the program on initial render and if dependencies change, it will re-run the logic again using dependencies state. */}
   useEffect(()=> {
     passwordGenerator()
   }, [length, numAllowed, charAllowed, passwordGenerator])
